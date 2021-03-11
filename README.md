@@ -1,4 +1,4 @@
-# OTOBO-Extended_Ticket-Notification
+# OTOBO-Extended-Ticket-Notification
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/MohdAzfar?locale.x=en_US)
 
@@ -9,12 +9,12 @@
 
 OTRS Agent Preferences (Profile) : 
 
-[![Capture.png](https://i.postimg.cc/VN5DRSrX/Capture.png)](https://postimg.cc/4Kk64x13)  
+[![t1.png](https://i.postimg.cc/YSMNmVP0/t1.png)](https://postimg.cc/bZVS76pf)  
 
-OTRS Ticket Notification: 
+OTOBO Ticket Notification: 
 
-[![Capture.png](https://i.postimg.cc/SxTMDnq7/Capture.png)](https://postimg.cc/jDf2jdDL)
+[![t2.png](https://i.postimg.cc/rpj1Gj6J/t2.png)](https://postimg.cc/Lqqg2z8Y)
 
 Telegram Users: [README](TELEGRAMAGENT.md) 
 
-[![download-1.png](https://i.postimg.cc/QNf20txj/download-1.png)](https://postimg.cc/14N7zyqd)  
+[![t3.png](https://i.postimg.cc/50k8Tt2Q/t3.png)](https://postimg.cc/ygcJSs97)
