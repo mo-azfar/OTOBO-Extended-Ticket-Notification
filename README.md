@@ -6,7 +6,8 @@
 
 - Built for OTOBO 10.0.x
 - This module extend default Ticket Notification module to send notification to agent via [Telegram](TELEGRAMAGENT.md).
-
+- Based on https://github.com/mo-azfar/OTRS-Extended-Ticket-Notification  
+  
 
 OTRS Agent Preferences (Profile) : 
 
