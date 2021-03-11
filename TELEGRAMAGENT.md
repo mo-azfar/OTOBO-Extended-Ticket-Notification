@@ -29,7 +29,7 @@
 		- Select 'Telegram Agent' as notification method.  
 		- Supported recipient type : Agent, Customer, 3rd Party Chat ID (non registered user/customer)  
 
-[![download-1.png](https://i.postimg.cc/QNf20txj/download-1.png)](https://postimg.cc/14N7zyqd)
+[![t3.png](https://i.postimg.cc/50k8Tt2Q/t3.png)](https://postimg.cc/ygcJSs97)
 
 
 6. To test the connection to telegram,
