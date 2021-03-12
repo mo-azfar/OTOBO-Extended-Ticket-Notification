@@ -18,6 +18,6 @@ OTOBO Ticket Notification Setting:
 [![t2.png](https://i.postimg.cc/rpj1Gj6J/t2.png)](https://postimg.cc/Lqqg2z8Y)
 
   
-| For Telegram		           | For Slack                    |
-| -----------------------------| -----------------------------|
-| [README](TELEGRAMAGENT.md)   | Pending                      |
+| For Telegram		           | For Slack                    | For RocketChat               |
+| -----------------------------| -----------------------------| -----------------------------|
+| [README](TELEGRAMAGENT.md)   | Pending                      | Pending                      |
