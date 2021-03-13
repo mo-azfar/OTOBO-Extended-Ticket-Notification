@@ -112,6 +112,128 @@ sub SendMessageTelegramAgent {
 	}
 }
 
+=cut
+
+		my $Test = $Self->SendMessageSlackAgent(
+                Token    => $Token,
+				SlackMemberID  => $RecipientMemberID,	
+				TicketURL	=>	$TicketURL,
+				TicketNumber	=>	$Ticket{TicketNumber},
+				Message	=>	$Notification{Body},
+				Created	=> $TicketDateTimeString,
+				Queue	=> $Ticket{Queue},
+				Service	=>	$Ticket{Service},
+				Priority=>	$Ticket{Priority},	
+				TicketID      => $TicketID, #sent for log purpose
+				ReceiverName      => $UserFullName, #sent for log purpose
+		);
+
+=cut
+
+sub SendMessageSlackAgent {
+	my ( $Self, %Param ) = @_;
+	
+	# check for needed stuff
+    for my $Needed (qw(Token SlackMemberID TicketURL TicketNumber Message Created Queue Service Priority TicketID ReceiverName)) {
+        if ( !$Param{$Needed} ) {
+            $Kernel::OM->Get('Kernel::System::Log')->Log(
+                Priority => 'error',
+                Message  => "Missing parameter $Needed!",
+            );
+            return;
+        }
+    }
+	
+	my $ua = LWP::UserAgent->new;
+	utf8::decode($Param{Message});
+	
+	#https://api.slack.com/methods/conversations.open
+	#to get userid based on member id
+	my $params1 = {
+       "return_im" => "true",
+	   "users" => $Param{SlackMemberID},
+
+	};
+	
+	my $response1 = $ua->post('https://slack.com/api/conversations.open',
+    'Content' => JSON::MaybeXS::encode_json($params1),
+    'Content-Type' => 'application/json',
+    'Authorization' => $Param{Token}
+	);
+	
+	my $content1  = decode_json ($response1->decoded_content());
+	my $resCode1 = $response1->code();
+	
+	if (defined $content1->{error})
+	{
+	$Kernel::OM->Get('Kernel::System::Log')->Log(
+			 Priority => 'error',
+			 Message  => "Slack notification to $Param{ReceiverName} ($Param{SlackMemberID}): $content1->{error}",
+		);
+    return 0;
+	}
+	
+	
+	#https://api.slack.com/methods/chat.postMessage
+	#send message to userid
+	my $params2 = {
+       "channel" => $content1->{channel}->{user},
+	   "text" => $Param{Message},
+	   "blocks"=> [
+		{
+		"type" => "section",
+		"text" => {
+			"type" => "mrkdwn",
+			"text" => "*<$Param{TicketURL}|$Param{TicketNumber}>*\n\n$Param{Message}"
+		}
+		},
+		{
+		"type" => "section",
+		"fields" => [
+			{
+				"type" => "mrkdwn",
+				"text" => "*Created:*\n$Param{Created}"
+			},
+			{
+				"type" => "mrkdwn",
+				"text" => "*Queue:*\n$Param{Queue}"
+			},
+			{
+				"type" => "mrkdwn",
+				"text" => "*Service:*\n$Param{Service}"
+			},
+			{
+				"type" => "mrkdwn",
+				"text" => "*Priority:*\n$Param{Priority}"
+			}
+		]
+		}
+		]	
+	};
+		
+	my $response2 = $ua->post('https://slack.com/api/chat.postMessage',
+    'Content' => JSON::MaybeXS::encode_json($params2),
+    'Content-Type' => 'application/json',
+    'Authorization' => $Param{Token}
+	);
+
+	my $content2  = decode_json ($response2->decoded_content());
+	my $resCode2 = $response2->code();
+	
+	if (defined $content2->{error})
+	{
+		$Kernel::OM->Get('Kernel::System::Log')->Log(
+			 Priority => 'error',
+			 Message  => "Slack notification to $Param{ReceiverName} ($Param{SlackMemberID}): $content2->{error}",
+		);
+		return 0;
+	}
+	else 
+	{
+		return 1;
+	}
+}
+
 
 1;
 
