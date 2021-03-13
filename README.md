@@ -5,7 +5,7 @@
 [![Donate with Ethereum](https://en.cryptobadges.io/badge/small/0x39B2E6E49B7434F1cEa0f92CBb9bE1843dC65153)](https://en.cryptobadges.io/donate/0x39B2E6E49B7434F1cEa0f92CBb9bE1843dC65153)
 
 - Built for OTOBO 10.0.x
-- This module extend default Ticket Notification module to send notification to agent via [Telegram](TELEGRAMAGENT.md).
+- This module extend default Ticket Notification module to send notification to agent via [Telegram](TELEGRAMAGENT.md)| [Slack](SLACKAGENT.md).
 - Based on https://github.com/mo-azfar/OTRS-Extended-Ticket-Notification  
 - Using perl / cpan module
 
@@ -17,13 +17,13 @@
 
 OTOBO Agent Preferences (Profile) : 
 
-[![t1.png](https://i.postimg.cc/YSMNmVP0/t1.png)](https://postimg.cc/bZVS76pf)  
+[![profile.png](https://i.postimg.cc/DfPK4QDc/profile.png)](https://postimg.cc/Cd52W8wZ)
 
 OTOBO Ticket Notification Setting: 
 
-[![t2.png](https://i.postimg.cc/rpj1Gj6J/t2.png)](https://postimg.cc/Lqqg2z8Y)
+[![notifiction-setting.png](https://i.postimg.cc/NjShvd9Q/notifiction-setting.png)](https://postimg.cc/mPYpQNyn)
 
   
 | For Telegram		           | For Slack                    | For RocketChat               |
 | -----------------------------| -----------------------------| -----------------------------|
-| [README](TELEGRAMAGENT.md)   | Pending                      | Pending                      |
+| [README](TELEGRAMAGENT.md)   | [README](SLACKAGENT.md)      | Pending                      |
