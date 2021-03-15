@@ -31,9 +31,9 @@ After create, take a note / remember the generated 'Access Token'
   
 5. Update System Configuration 
 	
-		> MattermostAgent::BaseURL					#with base url taken from no 1  
+		> MattermostAgent::BaseURL			#with base url taken from no 1  
 		> MattermostAgent::BotAccessToken			#with bot access token taken from no 3  
-		> MattermostAgent::BotID					#with bot id taken from no 4  
+		> MattermostAgent::BotID			#with bot id taken from no 4  
 
 
 6. Fill in agent preferences (profile) with Mattermost username at 'Mattermost Username' field
@@ -41,7 +41,7 @@ After create, take a note / remember the generated 'Access Token'
 
 7. Create or edit ticket notification and enable 'Mattermost Agent' method.
 
-		- Select 'Slack Agent' as notification method.  
+		- Select 'Mattermost Agent' as notification method.  
 		- Only supported recipient type : Agent  
 
 [![slack.png](https://i.postimg.cc/63TG456r/slack.png)](https://postimg.cc/TLMPZxD1)
