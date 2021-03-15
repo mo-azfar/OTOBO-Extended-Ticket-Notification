@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<otobo_config version="2.0" init="Config">
+    <Setting Name="Notification::Transport###MattermostAgent" Required="0" Valid="1">
+        <Description Translatable="1">Defines all the parameters for this notification transport.</Description>
+        <Navigation>Frontend::Admin::View::NotificationEvent</Navigation>
+        <Value>
+            <Hash>
+                <Item Key="Module">Kernel::System::Ticket::Event::NotificationEvent::Transport::MattermostAgent</Item>
+                <Item Key="Name" Translatable="1">Mattermost Agent</Item>
+                <Item Key="Icon">fa fa-mobile</Item>
+                <Item Key="Prio">131</Item>
+                <Item Key="IsOTOBOCommunityTransport">1</Item>
+                <Item Key="AgentEnabledByDefault">0</Item>
+            </Hash>
+        </Value>
+    </Setting>
+    <Setting Name="PreferencesGroups###MattermostUsername" Required="0" Valid="1">
+        <Description Translatable="1">Defines the config parameters of this item, to be shown in the preferences view. Please note: setting 'Active' to 0 will only prevent agents from editing settings of this group in their personal preferences, but will still allow administrators to edit the settings of another user's behalf. Use 'PreferenceGroup' to control in which area these settings should be shown in the user interface.</Description>
+        <Navigation>Frontend::Agent::View::Preferences</Navigation>
+        <Value>
+            <Hash>
+                <Item Key="Module">Kernel::Output::HTML::Preferences::Generic</Item>
+                <Item Key="PreferenceGroup">Miscellaneous</Item>
+                <Item Key="Label" Translatable="1">Mattermost Username</Item>
+                <Item Key="Desc" Translatable="1">This is a Description for MattermostUsername on Framework.</Item>
+                <Item Key="Key" Translatable="1">Mattermost Username</Item>
+                <Item Key="Block">Input</Item>
+                <Item Key="Data">[% Env("UserMattermostUsername") %]</Item>
+                <Item Key="PrefKey">UserMattermostUsername</Item>
+                <Item Key="Prio">7000</Item>
+                <Item Key="Active">1</Item>
+            </Hash>
+        </Value>
+    </Setting>
+    <Setting Name="MattermostAgent::BotAccessToken" Required="0" Valid="1">
+        <Description Translatable="1">Defines the bot access token use to send Mattermost notification</Description>
+        <Navigation>MattermostAgent::BotAccessToken</Navigation>
+        <Value>
+            <Item ValueType="String" ValueRegex="">MATTERMOST_BOT_ACCESS_TOKEN_HERE</Item>
+        </Value>
+    </Setting>
+	<Setting Name="MattermostAgent::BotID" Required="0" Valid="1">
+        <Description Translatable="1">Defines the mattermost bot id. You can get the id by referring the url when editing the bot.</Description>
+        <Navigation>MattermostAgent::BotID</Navigation>
+        <Value>
+            <Item ValueType="String" ValueRegex="">BOT_ID_HERE</Item>
+        </Value>
+    </Setting>
+    <Setting Name="MattermostAgent::UsernameField" Required="0" Valid="1">
+        <Description Translatable="1">Defines the field that hold the Mattermost Member ID for Agent</Description>
+        <Navigation>MattermostAgent::UsernameField</Navigation>
+        <Value>
+            <Item ValueType="String" ValueRegex="">UserMattermostUsername</Item>
+        </Value>
+    </Setting>
+	<Setting Name="MattermostAgent::BaseURL" Required="0" Valid="1">
+        <Description Translatable="1">Defines the base URL for Mattermost</Description>
+        <Navigation>MattermostAgent::BaseURL</Navigation>
+        <Value>
+            <Item ValueType="String" ValueRegex="">https://MATTERMOST_BASE_URL_HERE/api/v4</Item>
+        </Value>
+    </Setting>
+</otobo_config>
