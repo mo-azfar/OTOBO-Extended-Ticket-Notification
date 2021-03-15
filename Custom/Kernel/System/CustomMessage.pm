@@ -234,6 +234,146 @@ sub SendMessageSlackAgent {
 	}
 }
 
+=cut
+
+		my $Test = $Self->SendMessageMattermostAgent(
+                BotAccessToken => $BotAccessToken,
+				BotID => $BotID,
+				BaseURL => $BaseURL,
+				MattermostUsername  => $RecipientUsername,	
+				TicketURL	=>	$TicketURL,
+				TicketNumber	=>	$TicketHook.$Ticket{TicketNumber},
+				Message	=>	$Notification{Body},
+				Created	=> $TicketDateTimeString,
+				Queue	=> $Ticket{Queue},
+				Service	=>	$Ticket{Service},
+				Priority=>	$Ticket{Priority},	
+				TicketID      => $TicketID, #sent for log purpose
+				ReceiverName      => $UserFullName, #sent for log purpose
+		);
+
+=cut
+
+sub SendMessageMattermostAgent {
+	my ( $Self, %Param ) = @_;
+	
+	# check for needed stuff
+    for my $Needed (qw(BotAccessToken BotID BaseURL MattermostUsername TicketURL TicketNumber Message Created Queue Service Priority TicketID ReceiverName)) {
+        if ( !$Param{$Needed} ) {
+            $Kernel::OM->Get('Kernel::System::Log')->Log(
+                Priority => 'error',
+                Message  => "Missing parameter $Needed!",
+            );
+            return;
+        }
+    }
+	
+	my $ua = LWP::UserAgent->new;
+	utf8::decode($Param{Message});
+	
+	#========gettting user id of specific receiver==============================
+	my $params1 = [
+	"$Param{MattermostUsername}"
+	];
+	
+	my $response1 = $ua->post($Param{BaseURL}.'/users/usernames',
+		'Content' => JSON::MaybeXS::encode_json($params1),
+		'Content-Type' => 'application/json',
+		'Authorization' => 'Bearer '.$Param{BotAccessToken}
+	);
+	
+	
+	my $resCode1 = $response1->code();
+	my $content1  = decode_json ($response1->decoded_content());
+	
+	if ($resCode1 ne '200')
+	{
+		$Kernel::OM->Get('Kernel::System::Log')->Log(
+			Priority => 'error',
+			Message  => "Mattermost notification to $Param{ReceiverName} ($Param{MattermostUsername}): $content1->{status_code} $content1->{message}",
+		);
+		
+		return 0;
+	}
+
+	
+	if (!@{$content1})	#if user account not exist
+	{
+		$Kernel::OM->Get('Kernel::System::Log')->Log(
+			Priority => 'error',
+			Message  => "Mattermost notification to $Param{ReceiverName} ($Param{MattermostUsername}): Mattermost Username not found",
+		);
+		
+		return 0;
+	}
+		
+	my $userid = @{$content1}[0]->{id};
+	#print "UserID: $userid\n";
+	
+	
+	#========create DM channel between bot and receiver==============================
+	my $params2 = [
+	"$Param{BotID}", "$userid"
+	];
+	
+	my $response2 = $ua->post($Param{BaseURL}.'/channels/direct',
+		'Content' => JSON::MaybeXS::encode_json($params2),
+		'Content-Type' => 'application/json',
+		'Authorization' => 'Bearer '.$Param{BotAccessToken}
+	);
+	
+	my $resCode2 = $response2->code();
+	my $content2  = decode_json ($response2->decoded_content());
+	
+	if ($resCode2 ne '201')
+	{
+		$Kernel::OM->Get('Kernel::System::Log')->Log(
+			Priority => 'error',
+			Message  => "Mattermost notification to $Param{ReceiverName} ($Param{MattermostUsername}): $content2->{status_code} $content2->{message}",
+		);
+		
+		return 0;
+	}
+	
+	my $dm_channel_id = $content2->{id};
+	#print "DM ID: $dm_channel_id\n";
+	
+	
+	#===========send DM from bot to selected user====================
+	my $params3 = {
+		"channel_id" => "$dm_channel_id",
+		"message" => "**$Param{TicketURL}\n$Param{TicketNumber}**\n$Param{Message}",
+		"props"=> {"attachments" => [{"pretext" => "Information","text"=> "
+		Created  : $Param{Created}                                
+		Queue    : $Param{Queue}                                  
+		Service  : $Param{Service}                                
+		Priority : $Param{Priority}                               "}]}
+		};
+		
+	my $response3 = $ua->post($Param{BaseURL}.'/posts',
+		'Content' => JSON::MaybeXS::encode_json($params3),
+		'Content-Type' => 'application/json',
+		'Authorization' => 'Bearer '.$Param{BotAccessToken}
+	);
+	
+	my $resCode3 = $response3->code();
+	my $content3  = decode_json ($response3->decoded_content());
+	
+	if ($resCode3 ne '201')
+	{
+		$Kernel::OM->Get('Kernel::System::Log')->Log(
+			Priority => 'error',
+			Message  => "Mattermost notification to $Param{ReceiverName} ($Param{MattermostUsername}): $content3->{status_code} $content3->{message}",
+		);
+		
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+
+}
 
 1;
 
