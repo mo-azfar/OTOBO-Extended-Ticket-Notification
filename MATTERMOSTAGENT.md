@@ -20,13 +20,13 @@
   
 After create, take a note / remember the generated 'Access Token' 
   
-		Example of Bot Access Token: 	abcdefghijklm
+		Example of Bot Access Token: abcdefghijklm
   
   
 4. Get the bot id. At your new created bot, select Edit. (You can grab the bot id from the URL)
   
 		Example url: https://wxyz.cloud.mattermost.com/main/integrations/bots/edit?id=nopqrstuvwxyz
-		Example of bot id: 		nopqrstuvwxyz
+		Example of bot id: nopqrstuvwxyz
   
   
 5. Update System Configuration 
