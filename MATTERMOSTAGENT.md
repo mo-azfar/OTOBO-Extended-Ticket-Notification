@@ -44,4 +44,4 @@ After create, take a note / remember the generated 'Access Token'
 		- Select 'Mattermost Agent' as notification method.  
 		- Only supported recipient type : Agent  
 
-[![slack.png](https://i.postimg.cc/63TG456r/slack.png)](https://postimg.cc/TLMPZxD1)
+[![mattermost.png](https://i.postimg.cc/sgLkW4Hz/mattermost.png)](https://postimg.cc/Bjx79HG7)
