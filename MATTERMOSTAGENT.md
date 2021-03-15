@@ -32,7 +32,7 @@ After create, take a note / remember the generated 'Access Token'
 5. Update System Configuration 
 	
 		> MattermostAgent::BaseURL			#with base url taken from no 1  
-		> MattermostAgent::BotAccessToken			#with bot access token taken from no 3  
+		> MattermostAgent::BotAccessToken		#with bot access token taken from no 3  
 		> MattermostAgent::BotID			#with bot id taken from no 4  
 
 
