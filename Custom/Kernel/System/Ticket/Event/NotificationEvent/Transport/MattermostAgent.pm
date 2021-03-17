@@ -119,7 +119,7 @@ sub SendNotification {
     
 	my $TicketDateTimeObject = $Kernel::OM->Create('Kernel::System::DateTime', ObjectParams => { String   => $Ticket{Created},});
 	my $TicketDateTimeString = $TicketDateTimeObject->Format( Format => '%Y-%m-%d %H:%M' );
-    my $TicketURL = $HttpType.'://'.$FQDN.'/'.$ScriptAlias.'index.pl?Action=AgentTicketPrint;TicketID='.$TicketID;
+    my $TicketURL = $HttpType.'://'.$FQDN.'/'.$ScriptAlias.'index.pl?Action=AgentTicketZoom;TicketID='.$TicketID;
 	
 	if ( !$Ticket{Service} )
 	{
